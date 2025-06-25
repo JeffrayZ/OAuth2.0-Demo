@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          client-app:
+            # 指定OAuth2的提供者
+            provider: authorization-app
+            # 客户端ID
+            client-id: client-app
+            # 客户端密钥
+            client-secret: client-secret
+            # 客户端名称
+            client-name: Client App
+            # 客户端认证方式
+            client-authentication-method: client_secret_basic
+            # 授权类型
+            authorization-grant-type: authorization_code
+            # 重定向URI模板
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            # 请求的权限范围
+            scope:
+              - openid
+              - profile
+              - read
+        provider:
+          authorization-app:
+            # 授权服务器的授权URI
+            authorization-uri: http://localhost:8083/oauth2/authorize
+            # 授权服务器的令牌URI
+            token-uri: http://localhost:8083/oauth2/token
+            # JWKS集合的URI，用于验证JWT令牌
+            jwk-set-uri: http://localhost:8083/oauth2/jwks
+            # 发行人URI，通常用于OpenID Connect
+#            issuer-uri: http://localhost:8083
+
